@@ -1,13 +1,45 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 
-import { AppService } from './app.service';
+import { AppService, Tasks } from './app.service';
 
-@Controller()
+
+@Controller('todos')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getData() {
-    return this.appService.getData();
+  getTodos(): Tasks[] {
+    try {
+      return this.appService.getTasks();
+    } catch(error) {
+      throw new HttpException(
+        error.message,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  @Post()
+  createTodo(@Body() { name }: Tasks): Tasks[] {
+    try {
+      return this.appService.createTask(name);
+    } catch(error) {
+      throw new HttpException(
+        error.message,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  @Delete()
+  deleteTodo(@Param('id') id: number): Tasks[] {
+    try {
+      return this.appService.deleteTask(id);
+    } catch(error) {
+      throw new HttpException(
+        error.message,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 }
