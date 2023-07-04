@@ -1,1 +1,20 @@
-<task-nx-welcome></task-nx-welcome> <router-outlet></router-outlet>
+
+<main>
+
+  <h1>Todo List App</h1>
+
+  <div class="search">
+    <input type="text" [(ngModel)]="task" title="Task" />
+    <span (click)="addTask(task)">+</span>
+  </div>
+  <ul>
+    <li *ngFor="let task of tasks">
+      {{ task.name}}
+      <button type="button" title="Add"
+        class=""
+        (click)="deleteTask(task.id)">+
+      </button>
+    </li>
+  </ul>
+  <p></p>
+</main>

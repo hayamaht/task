@@ -26,7 +26,6 @@ export class AppService {
       name,
       completed: false
     };
-
     this.tasks = [...this.tasks, { ...task}];
     fs.writeFileSync(TASKS_FILE, JSON.stringify(this.tasks));
     return this.tasks;

@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post }
 import { AppService, Tasks } from './app.service';
 
 
-@Controller('todos')
+@Controller('tasks')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -31,7 +31,7 @@ export class AppController {
     }
   }
 
-  @Delete()
+  @Delete(':id')
   deleteTodo(@Param('id') id: number): Tasks[] {
     try {
       return this.appService.deleteTask(id);
